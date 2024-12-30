@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-hooks';
-import { useTimeout, TimeoutHandler } from '../src';
+import { renderHook } from "@testing-library/react-hooks";
+import { useTimeout, TimeoutHandler } from "../src";
 
 jest.useFakeTimers();
 
@@ -15,27 +15,31 @@ afterEach(() => {
   clearTimeoutSpy = jest.fn(window.clearTimeout);
   timeoutHandler = {
     setTimeout: (fn: () => void, timeout: number) => setTimeoutSpy(fn, timeout),
-    clearTimeout: (timeoutFn: number | undefined) => { clearTimeoutSpy(timeoutFn) },
+    clearTimeout: (timeoutFn: number | undefined) => {
+      clearTimeoutSpy(timeoutFn);
+    },
   };
-})
+});
 
-describe('useTimeout with custom TimeoutHandler', () => {
-  it('should be defined', () => {
+describe("useTimeout with custom TimeoutHandler", () => {
+  it("should be defined", () => {
     expect(useTimeout).toBeDefined();
   });
 
-  it('should execute a callback after the specified timeout, which must not leak', () => {
+  it("should execute a callback after the specified timeout, which must not leak", () => {
     const callbackProp = jest.fn();
     const timeoutProp = 1000;
-    const { unmount } = renderHook(({ callback, timeout, deps }) => (
-      useTimeout(callback, timeout, timeoutHandler, deps)
-    ), {
-      initialProps: {
-        callback: callbackProp,
-        timeout: timeoutProp,
-        deps: [timeoutProp],
-      },
-    });
+    const { unmount } = renderHook(
+      ({ callback, timeout, deps }) =>
+        useTimeout(callback, timeout, timeoutHandler, deps),
+      {
+        initialProps: {
+          callback: callbackProp,
+          timeout: timeoutProp,
+          deps: [timeoutProp],
+        },
+      }
+    );
 
     expect(setTimeoutSpy).toHaveBeenCalledTimes(1);
     expect(setTimeoutSpy).toHaveBeenCalledWith(callbackProp, 1000);
@@ -50,21 +54,23 @@ describe('useTimeout with custom TimeoutHandler', () => {
     expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should clear the timeout early if cancelTimeout is called', () => {
+  it("should clear the timeout early if cancelTimeout is called", () => {
     const callbackProp = jest.fn();
     const timeoutProp = 1000;
-    const { result, unmount } = renderHook(({ callback, timeout, deps }) => (
-      useTimeout(callback, timeout, timeoutHandler, deps)
-    ), {
-      initialProps: {
-        callback: callbackProp,
-        timeout: timeoutProp,
-        deps: [timeoutProp],
-      },
-    });
+    const { result, unmount } = renderHook(
+      ({ callback, timeout, deps }) =>
+        useTimeout(callback, timeout, timeoutHandler, deps),
+      {
+        initialProps: {
+          callback: callbackProp,
+          timeout: timeoutProp,
+          deps: [timeoutProp],
+        },
+      }
+    );
     const { current: cancelTimeout } = result;
 
-    expect(typeof cancelTimeout).toBe('function');
+    expect(typeof cancelTimeout).toBe("function");
 
     expect(setTimeoutSpy).toHaveBeenCalledTimes(1);
     expect(setTimeoutSpy).toHaveBeenCalledWith(callbackProp, timeoutProp);
@@ -86,18 +92,20 @@ describe('useTimeout with custom TimeoutHandler', () => {
     expect(clearTimeoutSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('should not execute the original callback if the callback property changes before the old timeout expires', () => {
+  it("should not execute the original callback if the callback property changes before the old timeout expires", () => {
     const callbackProp = jest.fn();
     const timeoutProp = 1000;
-    const { rerender, unmount } = renderHook(({ callback, timeout, deps }) => (
-      useTimeout(callback, timeout, timeoutHandler, deps)
-    ), {
-      initialProps: {
-        callback: callbackProp,
-        timeout: timeoutProp,
-        deps: [timeoutProp, callbackProp],
-      },
-    });
+    const { rerender, unmount } = renderHook(
+      ({ callback, timeout, deps }) =>
+        useTimeout(callback, timeout, timeoutHandler, deps),
+      {
+        initialProps: {
+          callback: callbackProp,
+          timeout: timeoutProp,
+          deps: [timeoutProp, callbackProp],
+        },
+      }
+    );
 
     expect(setTimeoutSpy).toHaveBeenCalledTimes(1);
     expect(setTimeoutSpy).toHaveBeenCalledWith(callbackProp, timeoutProp);
@@ -133,15 +141,17 @@ describe('useTimeout with custom TimeoutHandler', () => {
   and if the timeout was originally added to the hook dependencies`, () => {
     const callbackProp = jest.fn();
     const timeoutProp = 1000;
-    const { rerender, unmount } = renderHook(({ callback, timeout, deps }) => (
-      useTimeout(callback, timeout, timeoutHandler, deps)
-    ), {
-      initialProps: {
-        callback: callbackProp,
-        timeout: timeoutProp,
-        deps: [timeoutProp],
-      },
-    });
+    const { rerender, unmount } = renderHook(
+      ({ callback, timeout, deps }) =>
+        useTimeout(callback, timeout, timeoutHandler, deps),
+      {
+        initialProps: {
+          callback: callbackProp,
+          timeout: timeoutProp,
+          deps: [timeoutProp],
+        },
+      }
+    );
 
     expect(setTimeoutSpy).toHaveBeenCalledTimes(1);
     expect(setTimeoutSpy).toHaveBeenCalledWith(callbackProp, timeoutProp);
@@ -175,18 +185,20 @@ describe('useTimeout with custom TimeoutHandler', () => {
     expect(clearTimeoutSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('if no dependencies is passed, it should not reset the counter, even if some property changed', () => {
+  it("if no dependencies is passed, it should not reset the counter, even if some property changed", () => {
     const callbackProp = jest.fn();
     const timeoutProp = 1000;
-    const { rerender, unmount } = renderHook(({ callback, timeout, deps }) => (
-      useTimeout(callback, timeout, timeoutHandler, deps)
-    ), {
-      initialProps: {
-        callback: callbackProp,
-        timeout: timeoutProp,
-        deps: undefined,
-      },
-    });
+    const { rerender, unmount } = renderHook(
+      ({ callback, timeout, deps }) =>
+        useTimeout(callback, timeout, timeoutHandler, deps),
+      {
+        initialProps: {
+          callback: callbackProp,
+          timeout: timeoutProp,
+          deps: undefined,
+        },
+      }
+    );
 
     expect(setTimeoutSpy).toHaveBeenCalledTimes(1);
     expect(setTimeoutSpy).toHaveBeenCalledWith(callbackProp, timeoutProp);

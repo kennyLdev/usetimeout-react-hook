@@ -28,11 +28,11 @@ npm install usetimeout-react-hook
 
 ## 🔑 Key features
 
-* 🥇 inspired by [this awesome blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks) by [Dan Abramov](https://github.com/gaearon)
-* ⚠️ optional manual cancelability of timeout
-* ✨ uses [useEffect](https://reactjs.org/docs/hooks-effect.html) dependencies array as a policy to dictate the hook updates, by default no dependency is specified
-* 💪 written in TypeScript
-* ✔️ 100% test coverage
+- 🥇 inspired by [this awesome blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks) by [Dan Abramov](https://github.com/gaearon)
+- ⚠️ optional manual cancelability of timeout
+- ✨ uses [useEffect](https://reactjs.org/docs/hooks-effect.html) dependencies array as a policy to dictate the hook updates, by default no dependency is specified
+- 💪 written in TypeScript
+- ✔️ 100% test coverage
 
 ## 🤔 Yet another setTimeout hook, why?
 
@@ -41,17 +41,17 @@ appear. Why was this package necessary?
 
 Most of the other timeout hook packages I've glanced at had the following shortcomings:
 
-* stuck with setTimeout, with no generic timer support
-* no custom re-render policy
-* no tests in place
+- stuck with setTimeout, with no generic timer support
+- no custom re-render policy
+- no tests in place
 
 Sometimes user needs the ability to use a custom timer, since `setTimeout` may not always be the best choice, especially in
 React Native applications. In fact, the primary reason I built this custom hook was to expose a customizable and reusable
 timeout manager for an other package of mine, [react-native-user-inactivity](https://github.com/jkomyno/react-native-user-inactivity).
 A number of users had pointed out that on **React Native** there were the following issues with `setTimeout`:
 
-* it would cause a crash on Android after many minutes of timeout
-* it would simply stop working when the application is in background
+- it would cause a crash on Android after many minutes of timeout
+- it would simply stop working when the application is in background
 
 Hopefully this package will be useful to others as well.
 
@@ -67,7 +67,7 @@ The type of this function, `CancelTimer`, is: `() => void`.
 The signature of `useTimeoutDefault` is the following:
 
 ```typescript
-import useTimeoutDefault from 'usetimeout'; // notice that it's a default import
+import useTimeoutDefault from "usetimeout"; // notice that it's a default import
 
 /**
  * useTimeoutDefault is a React.js custom hook that sets a leak-safe timeout and returns
@@ -77,13 +77,17 @@ import useTimeoutDefault from 'usetimeout'; // notice that it's a default import
  * If a new callback is given to the hook before the previous timeout expires,
  * only the new callback will be executed at the moment the timeout expires.
  * When the hook receives a new callback, the timeout isn't reset.
- * 
+ *
  * @param callback the function to be executed after the timeout expires
  * @param timeout the number of milliseconds after which the callback should be triggered
  * @param deps useEffect dependencies that should cause the timeout to be reset
  * @return function to cancel the timer before the timeout expires
  */
-type UseTimeoutDefault = (callback: () => void, timeout: number, deps?: unknown[]) => CancelTimer;
+type UseTimeoutDefault = (
+  callback: () => void,
+  timeout: number,
+  deps?: unknown[]
+) => CancelTimer;
 ```
 
 Since `usetimeout` supports a generic timer, it requires an implementation of the TimeoutHandler interface, which is defined as:
@@ -111,7 +115,7 @@ interface TimeoutHandler<T> {
 The signature of `useTimeout` is the following:
 
 ```typescript
-import { useTimeout } from 'usetimeout'; // notice that it's a named import
+import { useTimeout } from "usetimeout"; // notice that it's a named import
 
 /**
  * useTimeout is a React.js custom hook that sets a leak-safe timeout and returns
@@ -123,17 +127,22 @@ import { useTimeout } from 'usetimeout'; // notice that it's a named import
  * If a new callback is given to the hook before the previous timeout expires,
  * only the new callback will be executed at the moment the timeout expires.
  * When the hook receives a new callback, the timeout isn't reset.
- * 
+ *
  * @param callback the function to be executed after the timeout expires
  * @param timeout the number of milliseconds after which the callback should be triggered
  * @param timeHandler TimeoutHandler instance that's used to set and clear the timeout
  * @param deps useEffect dependencies that should cause the timeout to be reset
  * @return function to cancel the timer before the timeout expires
  */
-type UseTimeout = <T>(callback: () => void, timeout: number, timeHandler: TimeoutHandler<T>, deps?: unknown[]) => CancelTimer;
+type UseTimeout = <T>(
+  callback: () => void,
+  timeout: number,
+  timeHandler: TimeoutHandler<T>,
+  deps?: unknown[]
+) => CancelTimer;
 ```
 
----------------------------------------------------------
+---
 
 ## ✔️ Run tests
 
@@ -148,35 +157,36 @@ npm run test
 This package is built using **TypeScript**, so the source needs to be converted in JavaScript before being usable by the users.
 **usetimeout** uses [**Rollup**](https://rollupjs.org) as build system, and the JavaScript module formats it's been configured to support are:
 
-* CommonJS: module format used by Node (using `require` function).
-* ESM: modern module format (using `import` syntax).
-* UMD: Universal Module Definition, to be able to import it directly in the browser (not as popular these days).
+- CommonJS: module format used by Node (using `require` function).
+- ESM: modern module format (using `import` syntax).
+- UMD: Universal Module Definition, to be able to import it directly in the browser (not as popular these days).
 
 ```sh
 npm run build
 ```
 
-## 👤 Author
+## Current Maintainer
+
+**Kenneth Lindelof**
+
+- Github: [@kennyldev](https://github.com/kennyldev)
+
+## 👤 Original Author
 
 **Alberto Schiabel**
 
-* Github: [@jkomyno](https://github.com/jkomyno)
+- Github: [@jkomyno](https://github.com/jkomyno)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/jkomyno/usetimeout-react-hook/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/kennyLdev/usetimeout-react-hook/issues).
 The code is short, throughly commented and well tested, so you should feel quite comfortable working on it.
 If you have any doubt or suggestion, please open an issue.
 
-## 🦄 Show your support
-
-Give a ⭐️ if this project helped or inspired you!
-
 ## 📝 License
 
-Built with ❤️ by [Alberto Schiabel](https://github.com/jkomyno).<br />
-This project is [MIT](https://github.com/jkomyno/usetimeout-react-hook/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/kennyldev/usetimeout-react-hook/blob/master/LICENSE) licensed.
 
 ## Related packages
 
-* [react-native-user-inactivity](https://github.com/jkomyno/react-native-user-inactivity)
+- [react-native-user-inactivity](https://github.com/jkomyno/react-native-user-inactivity)
