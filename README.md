@@ -1,22 +1,23 @@
 <h1 align="center">usetimeout-react-hook</h1>
 <p>
-  <a href="https://travis-ci.org/jkomyno/usetimeout-react-hook.svg?branch=master">
-    <img alt="Build Status" src="https://travis-ci.org/jkomyno/usetimeout-react-hook.svg?branch=master" target="_blank" />
+  <a href="https://github.com/kennyLdev/usetimeout-react-hook/actions/workflows/npm-publish-github-packages.yml">
+    <img alt="Build Status" src="https://github.com/kennyldev/usetimeout-react-hook/actions/workflows/npm-publish-github-packages.yml/badge.svg" target="_blank" />
   </a>
-  <a href="https://coveralls.io/github/jkomyno/usetimeout-react-hook?branch=master">
-    <img alt="Coverage Status" src="https://coveralls.io/repos/jkomyno/usetimeout-react-hook/badge.svg?branch=master" target="_blank" />
+  <a href="https://codecov.io/gh/kennyLdev/usetimeout-react-hook" >
+    <img src="https://codecov.io/gh/kennyLdev/usetimeout-react-hook/graph/badge.svg?token=WKE0VDNZG7"/>
   </a>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.2-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/jkomyno/usetimeout-react-hook#readme">
+  <a href="https://github.com/kennyldev/usetimeout-react-hook#readme">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
   </a>
-  <a href="https://github.com/jkomyno/usetimeout-react-hook/graphs/commit-activity">
+  <a href="https://github.com/kennyldev/usetimeout-react-hook/graphs/commit-activity">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
   </a>
-  <a href="https://github.com/jkomyno/usetimeout-react-hook/blob/master/LICENSE">
+  <a href="https://github.com/kennyldev/usetimeout-react-hook/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
 </p>
+
+## We forked this because we used it in some of our customer projects, and it prevented our movement of RN versions due to dependency requirements. We plan to maintain this version as needed. If you run into any issues, please don't hesitate to open an issue here on GitHub.
 
 > React.js custom hook that sets a leak-safe timeout and returns a function to cancel it before the timeout expires.
 
@@ -155,11 +156,7 @@ npm run test
 ## 🚀 Build package
 
 This package is built using **TypeScript**, so the source needs to be converted in JavaScript before being usable by the users.
-**usetimeout** uses [**Rollup**](https://rollupjs.org) as build system, and the JavaScript module formats it's been configured to support are:
-
-- CommonJS: module format used by Node (using `require` function).
-- ESM: modern module format (using `import` syntax).
-- UMD: Universal Module Definition, to be able to import it directly in the browser (not as popular these days).
+**usetimeout** uses Vite as a build system.
 
 ```sh
 npm run build
@@ -189,4 +186,4 @@ This project is [MIT](https://github.com/kennyldev/usetimeout-react-hook/blob/ma
 
 ## Related packages
 
-- [react-native-user-inactivity](https://github.com/jkomyno/react-native-user-inactivity)
+- [react-native-user-inactivity](https://github.com/kennyldev/react-native-user-inactivity)
