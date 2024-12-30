@@ -24,7 +24,7 @@
 ## Install
 
 ```sh
-npm install usetimeout-react-hook
+npm install @kennyldev/usetimeout-react-hook
 ```
 
 ## 🔑 Key features
